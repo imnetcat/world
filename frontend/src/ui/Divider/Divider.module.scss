@@ -1,0 +1,35 @@
+@import 'src/theme.scss';
+
+.divider {
+  margin: 0;
+  border-color: $border-color-5;
+  transition: $transition-1;
+
+  &.danger {
+    border-color: $border-color-14;
+  }
+}
+
+.horizontalMargin1 {
+  margin: 0px 8px;
+}
+
+.horizontalMargin2 {
+  margin: 0px 16px;
+}
+
+.horizontalMargin3 {
+  margin: 0px 32px;
+}
+
+.verticalMargin1 {
+  margin: 8px 0px;
+}
+
+.verticalMargin2 {
+  margin: 16px 0px;
+}
+
+.verticalMargin3 {
+  margin: 32px 0px;
+}

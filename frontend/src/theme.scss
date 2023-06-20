@@ -1,0 +1,29 @@
+$font-family: Roboto, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans',
+	sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+	'Noto Color Emoji';
+
+$transition-1: 1s all linear;
+
+$primary-color: #00ccff;
+
+$background-color: #1f1f1f;
+$background-color-2: #414141;
+$background-color-3: #006570;
+
+$text-color-1: rgb(255 255 255);
+$text-color-2: rgb(141 141 141);
+$text-color-3: rgb(103 103 103);
+$text-color-4: #2496ff;
+
+$success-color: #2f9d50;
+$success-color-hover: #7cd880;
+$warning-color: #fc9631;
+$warning-color-hover: #fbbf25;
+$danger-color: #f41725;
+$danger-color-hover: #f7544f;
+
+$border-color: $primary-color;
+$border-color-edit: inherit;
+$border-color-saved: inherit;
+$border: 1px solid $border-color;
+$border-radius: 4px;

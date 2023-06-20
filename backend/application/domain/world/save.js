@@ -1,0 +1,1 @@
+async (worldData) => lib.crud.create('World', worldData);

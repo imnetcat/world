@@ -1,0 +1,23 @@
+@import 'src/theme.scss';
+
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  color: $tag-text-color;
+  background-color: $tag-background-color;
+  border: $tag-border;
+  border-radius: $tag-border-radius;
+  font-size: 12px;
+  line-height: 16px;
+
+  &.danger {
+    background-color: $danger-background-color;
+    border: $danger-border;
+  }
+}
+
+.closeIcon {
+  &:hover {
+    cursor: pointer;
+  }
+}

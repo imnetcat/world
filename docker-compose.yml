@@ -1,0 +1,76 @@
+version: "3.3"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.${MODE}
+      args:
+        - REACT_APP_METACOM_PORT=8000
+    container_name: world-frontend
+    stdin_open: true
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+    ports:
+      - "${HTTP_PORT}:${HTTP_PORT}"
+      - "${HTTPS_PORT}:${HTTPS_PORT}"
+    environment:
+      - REACT_APP_METACOM_PORT=8000
+      - HTTPS=${HTTPS}
+      - SSL_CRT_FILE=${SSL_CRT_FILE}
+      - SSL_KEY_FILE=${SSL_KEY_FILE}
+  db:
+    image: "postgres:11"
+    container_name: world-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./backend/application/schemas/database.sql:/docker-entrypoint-initdb.d/1_database.sql:Z
+      - ./backend/application/db/required_data.sql:/docker-entrypoint-initdb.d/3_initial.sql:Z
+      - ./backend/application/db/data.sql:/docker-entrypoint-initdb.d/4_data.sql:Z
+      - pgdata:/var/lib/postgresql/data:Z
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.${MODE}
+    container_name: world-backend
+    volumes:
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - HTTPS=${HTTPS}
+      - DOMAIN=${DOMAIN}
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: world-pgadmin
+    ports:
+      - "5050:5050"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${POSTGRES_USER}
+      - PGADMIN_DEFAULT_PASSWORD=${POSTGRES_PASSWORD}
+      - PGADMIN_LISTEN_PORT=5050
+      - PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=False
+    links:
+      - db
+  portainer:
+    image: portainer/portainer-ce
+    container_name: world-portainer
+    ports:
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+volumes:
+  pgdata:
+  portainer_data:

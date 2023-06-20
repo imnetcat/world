@@ -1,0 +1,167 @@
+@import 'src/theme.scss';
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.noWrap {
+  white-space: nowrap;
+}
+
+.breakSpaces {
+  white-space: break-spaces;
+}
+
+.gradient {
+  background: linear-gradient(239.14deg, #aaca4b 7.61%, #558ecb 64.08%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.center {
+  text-align: center;
+}
+
+.title {
+  transition: $transition-1;
+
+  &.secondary {
+    color: $text-color-2;
+  }
+
+  &.default {
+    color: $text-color-1;
+  }
+
+  &.danger {
+    color: $danger-color;
+  }
+}
+
+.titleFontSize3 {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.titleFontSize2 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.titleFontSize1 {
+  font-size: 32px;
+  line-height: 48px;
+}
+
+.text {
+
+  &,
+  & button,
+  & input,
+  & textarea {
+    font-weight: 400;
+    transition: $transition-1;
+  }
+
+  &.secondary {
+
+    &,
+    & button,
+    & input,
+    & textarea {
+      color: $text-color-2;
+    }
+  }
+
+  &.thirdly {
+
+    &,
+    & button {
+      color: $text-color-3;
+    }
+  }
+
+  &.link {
+    color: $text-color-4;
+  }
+
+  &.default {
+
+    &,
+    & button,
+    & input,
+    & textarea {
+      color: $text-color-1;
+    }
+  }
+
+  &.danger {
+
+    &,
+    & button,
+    & input,
+    & textarea {
+      color: $danger-color;
+    }
+
+    &button:hover {
+      color: $danger-color-hover;
+    }
+  }
+
+  &.bold {
+
+    &,
+    & button,
+    & input,
+    & textarea {
+      font-weight: 700;
+    }
+  }
+}
+
+.textFontSize1 {
+
+  &,
+  & button,
+  & input,
+  & textarea {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+.textFontSize2 {
+
+  &,
+  & button,
+  & input,
+  & textarea {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.textFontSize3 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.textFontSize4 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.userSelectNone {
+  user-select: none;
+}
+
+.currentColor {
+  color: currentColor !important;
+}

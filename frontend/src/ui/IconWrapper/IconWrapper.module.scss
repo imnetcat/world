@@ -1,0 +1,175 @@
+@import 'themeV2.scss';
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  transition: $transition-1;
+
+  &.filled {
+    width: 40px;
+    height: 40px;
+    background: $background-color-6;
+    border-radius: $border-radius-5;
+
+    svg {
+      color: $text-color-2;
+
+      path {
+        fill: $text-color-2;
+      }
+    }
+
+    &.size6 {
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  &.violet {
+    background: $background-color-32;
+    border-radius: $border-radius-6;
+
+    svg {
+      color: $text-color-8;
+
+      path {
+        fill: $text-color-8;
+      }
+    }
+  }
+
+  &.secondary {
+    color: $text-color-2;
+
+    svg {
+      color: $text-color-2;
+
+      path {
+        fill: $text-color-2;
+      }
+    }
+  }
+
+  &.hint {
+    color: $text-color-5;
+
+    svg {
+      color: $text-color-5;
+
+      path {
+        fill: $text-color-5;
+      }
+    }
+  }
+
+  &.white {
+    color: $text-color-8;
+
+    svg {
+      color: $text-color-8;
+
+      path {
+        fill: $text-color-8;
+      }
+    }
+  }
+
+  &.danger {
+    color: $text-color-15;
+
+    svg {
+      color: $text-color-15;
+
+      path {
+        fill: $text-color-15;
+      }
+    }
+  }
+
+  &.pointer {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    color: $text-color-5;
+
+    svg {
+      color: $text-color-5;
+
+      path {
+        fill: $text-color-5;
+      }
+    }
+  }
+
+  :global {
+    .anticon {
+      margin: 0;
+    }
+  }
+}
+
+.size1 {
+  width: 12px;
+  height: 12px;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.size2 {
+  width: 16px;
+  height: 16px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.size3 {
+  width: 20px;
+  height: 20px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.size4 {
+  width: 24px;
+  height: 24px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.size5 {
+  width: 32px;
+  height: 32px;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.size6 {
+  width: 40px;
+  height: 40px;
+
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+}

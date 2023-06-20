@@ -1,0 +1,1 @@
+() => domain.world.biomes.defs;

@@ -1,0 +1,23 @@
+@import 'src/theme.scss';
+
+.title {
+  padding: 8px 16px;
+  line-height: 24px;
+  width: 100%;
+  display: block;
+}
+
+.select {
+  padding: 8px 0;
+
+  :global {
+    .ant-select-item {
+      padding: 8px 16px;
+      margin: 4px 0;
+    }
+
+    .ant-select-item-option-content {
+      line-height: 24px;
+    }
+  }
+}

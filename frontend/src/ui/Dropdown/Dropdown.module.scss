@@ -1,0 +1,48 @@
+@import 'src/theme.scss';
+
+.dropdownMenu {
+  min-width: 320px;
+
+  :global {
+    .ant-divider {
+      margin: 4px 0px;
+    }
+
+    .ant-dropdown-menu-item {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: $dropdown-text-color;
+    }
+
+    .ant-dropdown-menu {
+      justify-content: center;
+      gap: 4px;
+      padding: 8px 0px;
+      min-width: 320px;
+      background: $dropdown-background-color;
+      box-shadow: $common-box-shadow;
+      border-radius: 8px;
+    }
+
+    .ant-dropdown-menu-item-icon {
+      svg {
+        width: 20px;
+        height: 20px;
+
+        path {
+          fill: currentColor;
+        }
+      }
+    }
+
+    .ant-dropdown-menu-item-danger {
+      color: $danger-color;
+
+      &:hover {
+        color: $danger-color;
+        background-color: $background-color-12;
+      }
+    }
+  }
+}

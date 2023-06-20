@@ -1,0 +1,55 @@
+.fixedWidth {
+  min-width: 0;
+}
+
+.fixedHeight {
+  min-height: 0;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.fullHeight {
+  height: 100%;
+}
+
+.flex0 {
+  flex: 0;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.displayFlex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.col {
+  flex-direction: column;
+}
+
+.rowReversed {
+  flex-direction: row-reverse;
+}
+
+.colReversed {
+  flex-direction: column-reverse;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.nowrap {
+  flex-wrap: nowrap;
+}
+
+.wrap-reverse {
+  flex-wrap: wrap-reverse;
+}

@@ -1,0 +1,51 @@
+@import 'src/theme.scss';
+
+.box {
+  background-color: $background-color-1;
+  outline: 2px solid transparent;
+  border-radius: $border-radius-4;
+  transition: $transition-1;
+  box-shadow: $box-shadow-1;
+  cursor: pointer;
+
+  &.fullHeight {
+    height: 100%;
+  }
+
+  &.square {
+    aspect-ratio: 1;
+  }
+
+  &.danger {
+    background-color: $background-color-12;
+  }
+
+  &.warning {
+    background-color: $background-color-25;
+  }
+
+  &.opened {
+    background-color: $background-color-7 !important;
+  }
+
+  &.hover:hover:not(.disabled) {
+    outline-color: $border-color-10;
+
+    &.danger {
+      outline-color: $border-color-16;
+    }
+
+    &.warning {
+      outline-color: $warning-color;
+    }
+  }
+
+  &.selected {
+    outline-color: $border-color-10;
+    box-shadow: $box-shadow-3;
+  }
+
+  &.shadow {
+    box-shadow: $box-shadow-1;
+  }
+}

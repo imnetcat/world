@@ -1,0 +1,24 @@
+@import 'src/theme.scss';
+
+.home {
+	height: calc(100% - 70px);
+	flex-wrap: nowrap;
+}
+.sidebar {
+	width: 240px;
+	height: 100%;
+	background-color: $background-color;
+}
+
+.dataCol {
+	display: flex;
+	justify-content: space-around;
+	align-items: start;
+	padding: 24px;
+	:global {
+		.ant-space-item,
+		.ant-space {
+			width: 100%;
+		}
+	}
+}

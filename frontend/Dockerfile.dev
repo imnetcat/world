@@ -1,0 +1,8 @@
+FROM node:16-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+WORKDIR /app/frontend
+RUN mkdir -p /app/frontend/node_modules/.cache && chmod -R 777 /app/frontend/node_modules/.cache
+RUN mkdir -p /app/node_modules/.cache && chmod -R 777 /app/node_modules/.cache
+CMD npm run start

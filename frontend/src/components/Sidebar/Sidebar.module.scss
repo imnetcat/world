@@ -1,0 +1,8 @@
+@import 'src/theme.scss';
+
+.sidebar {
+	width: 240px;
+	margin-top: 64px;
+	background-color: $background-color;
+	position: fixed;
+}

@@ -1,0 +1,37 @@
+{
+	"name": "backend",
+	"version": "1.0.0",
+	"description": "",
+	"private": true,
+	"main": "server.js",
+	"types": "types/global.d.ts",
+	"scripts": {
+		"test": "node test/system.js",
+		"lint": "eslint .",
+		"fmt:check": "prettier -c \"**/*.tsx\" \"**/*.jsx\" \"**/*.ts\" \"**/*.js\" \"**/*.scss\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" --no-error-on-unmatched-pattern",
+		"lint:exact": "eslint --no-error-on-unmatched-pattern",
+		"fmt:check:exact": "prettier -c --no-error-on-unmatched-pattern",
+		"fmt": "prettier --write \"**/*.tsx\" \"**/*.jsx\" \"**/*.ts\" \"**/*.js\" \"**/*.scss\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" --no-error-on-unmatched-pattern",
+		"types": "tsc",
+		"db": "metasql c && node ./post-metadb.js"
+	},
+	"engines": {
+		"node": "16 || 18 || 19 || 20"
+	},
+	"devDependencies": {
+		"@types/node": "^15.12.5",
+		"eslint": "^7.29.0",
+		"eslint-config-prettier": "^8.3.0",
+		"prettier": "^2.3.2",
+		"typescript": "^4.7.3"
+	},
+	"dependencies": {
+		"@metarhia/iterator": "^1.0.0-alpha3",
+		"alea": "^1.0.1",
+		"impress": "^3.0.0-alpha.13",
+		"jimp": "^0.22.8",
+		"metasql": "^2.1.4",
+		"pg": "^8.11.0",
+		"simplex-noise": "^4.0.1"
+	}
+}

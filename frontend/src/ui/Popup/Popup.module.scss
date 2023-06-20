@@ -1,0 +1,14 @@
+@import 'src/theme.scss';
+
+.buttons {
+	padding: 8px 16px;
+	border-radius: 6px;
+	height: 40px;
+	width: fit-content;
+}
+
+.okBtnContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

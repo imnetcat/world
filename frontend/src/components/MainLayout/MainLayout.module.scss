@@ -1,0 +1,12 @@
+@import 'src/theme.scss';
+
+.container {
+    height: calc(100% - 64px);
+}
+
+.content {
+    margin: 32px;
+    margin-top: 64px;
+    margin-left: 272px;
+    width: calc(100% - 304px);
+}

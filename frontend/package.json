@@ -1,0 +1,65 @@
+{
+	"name": "frontend",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@ant-design/charts": "^1.4.2",
+		"@ant-design/icons": "^4.6.2",
+		"@reduxjs/toolkit": "^1.5.1",
+		"antd": "^4.6.3",
+		"date-fns": "^2.22.1",
+		"lodash": "^4.17.20",
+		"metacom": "^3.0.0-alpha.12",
+		"react": "^17.0.2",
+		"react-color": "^2.19.3",
+		"react-dom": "^17.0.2",
+		"react-redux": "^7.2.3",
+		"react-router-dom": "^5.2.0",
+		"react-scripts": "^5.0.1",
+		"web-vitals": "^1.0.1"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test a --watchAll=false --passWithNoTests",
+		"lint": "eslint .",
+		"fmt:check": "prettier -c \"**/*.tsx\" \"**/*.jsx\" \"**/*.ts\" \"**/*.js\" \"**/*.scss\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" --no-error-on-unmatched-pattern",
+		"lint:exact": "eslint --no-error-on-unmatched-pattern",
+		"fmt:check:exact": "prettier -c --no-error-on-unmatched-pattern",
+		"fmt": "prettier --write \"**/*.tsx\" \"**/*.jsx\" \"**/*.ts\" \"**/*.js\" \"**/*.scss\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" --no-error-on-unmatched-pattern",
+		"eject": "react-scripts eject",
+		"generate-antd-theme": "npx @emeks/antd-custom-theme-generator ./src/antd-theme.less ./src/antd-theme.css"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@testing-library/jest-dom": "^4.2.4",
+		"@testing-library/react": "^9.3.2",
+		"@testing-library/user-event": "^7.1.2",
+		"@types/jest": "^26.0.23",
+		"@types/node": "^15.6.1",
+		"@types/react": "^17.0.8",
+		"@types/react-beautiful-dnd": "^13.1.1",
+		"@types/react-color": "^3.0.6",
+		"@types/react-dom": "^17.0.5",
+		"@types/react-router-dom": "^5.1.7",
+		"eslint": "^7.27.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-import": "^2.23.4",
+		"eslint-plugin-prettier": "^3.4.0",
+		"eslint-plugin-react": "^7.24.0",
+		"prettier": "^2.3.0",
+		"sass": "^1.55.0",
+		"typescript": "^4.7.3"
+	}
+}
