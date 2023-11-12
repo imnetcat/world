@@ -2,7 +2,7 @@
 
 ![image](https://github.com/imnetcat/world/assets/37350375/5c12bc7e-017c-4001-8f4b-639c5b37cf6c)
 
-Site-generator, looped along the X and Y axis, 2D map of the virtual world with heights, biomes, temperature, and humidity.
+Site-generator for 2d maps of virtual worlds, looped along the X and Y axis, with heights, biomes, temperature, and humidity.
 Two-dimensional Perlin noise is used to generate heights, and ordinary trigonometric functions are used to generate temperature and humidity parameters.
 
 _Work in progress_
