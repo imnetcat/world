@@ -106,7 +106,7 @@ const WorldPage = () => {
 										}}
 										direction='both'
 									>
-										<Flex.Col fullHeight justify='center' align='center'>
+										<Flex.Row fullWidth fullHeight justify='center' align='center'>
 											{loading && <Loader />}
 											{!loading && !world &&
 												<Title center wrap='breakSpaces'>Generate first world in the right panel --{'>'}</Title>
@@ -134,7 +134,7 @@ const WorldPage = () => {
 														setSelectedTile(tile);
 													}} />
 											}
-										</Flex.Col>
+										</Flex.Row>
 									</ScrollBox>
 								</Flex.Col>
 							</Window>

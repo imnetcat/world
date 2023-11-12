@@ -69,7 +69,8 @@
             moistureAmplitudes = [],
             temperatureAmplitudes = [],
         } = generatorConfig;
-        const tiles = new Array(height).fill(new Array(width).fill({}));
+        // const tiles = new Array(height).fill(new Array(width).fill({}));
+        const tiles = [];
         const seedFunc = npm.alea(seed);
         const createNoise = npm['simplex-noise'].createNoise4D;
         const genTerrain = createNoise(seedFunc);
@@ -147,7 +148,11 @@
                 if (m > 1) m = 1;
                 if (m < -1) m = -1;
 
-                tiles[x][y] = domain.world.terrain.getTile(h, m, t);
+                // tiles[x][y] = domain.world.terrain.getTile(h, m, t);
+                tiles.push({
+                    x, y,
+                    ...domain.world.terrain.getTile(h, m, t)
+                });
             }
         }
         const generationTimeEnd = new Date().getTime();

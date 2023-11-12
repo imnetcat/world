@@ -9,8 +9,8 @@ export interface World {
 		y: number;
 		biome: string;
 		moisture: number;
-		releasedMoisture: number;
-		windDirection: number;
+		// releasedMoisture: number;
+		// windDirection: number;
 		temperature: number;
 	}>;
 	generatorConfig: {

@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 import Flex from 'ui/Flex';
 import styles from './Sidebar.module.scss';
 
-export type SidebarOptions = 'settings' | 'home';
+export type SidebarOptions = 'settings' | 'home' | 'world';
 
 export interface SidebarProps {
 	value?: SidebarOptions;
