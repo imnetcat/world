@@ -136,6 +136,13 @@ const SavesPage = () => {
 									offset: offset * savesPagging.limit
 								})}
 							/>
+							<Flex.Row wrap gap={16}>
+								<Flex.Col>
+									<Button type='primary'>
+										Load world from save file
+									</Button>
+								</Flex.Col>
+							</Flex.Row>
 						</Window>
 					</Flex.Col>
 				</ScrollBox>

@@ -1,5 +1,5 @@
 import { CloseOutlined, PlusOutlined, RedoOutlined } from '@ant-design/icons';
-import { Form, Input, Slider } from 'antd';
+import { Collapse, Form, Input, Slider } from 'antd';
 import { WorldBase } from 'api/world';
 import { useGenerateWorldMutation } from 'app/hooks';
 import { Loader } from 'components/Loader';
@@ -139,107 +139,114 @@ const GeneratorPage = () => {
 										</Form.Item>
 									</Flex.Col>
 								</Flex.Row>
-								<Flex.Row flex={0} fullWidth gap={16} justify='center'>
-									<Flex.Col flex={1}>
-										<Form.List name={['generatorConfig', 'terrainAmplitudes']}>
-											{(fields, { add, remove }) => (
-												<Flex.Col gap={16} fullWidth justify='center' align='center'>
-													<Text size={2}>Terrain amplitudes:</Text>
-													{fields.map(({ key, ...field }, i) => (
-														<Flex.Row fullWidth key={key} gap={16} align='center' justify='center'>
-															<Flex.Col>
-																<Form.Item {...field} noStyle rules={[{ required: true }]}>
-																	<Input
-																		min={0.01}
-																		max={1}
-																		step={0.01}
-																		type='number'
-																	/>
-																</Form.Item>
-															</Flex.Col>
-															<Flex.Col>
-																<Button onClick={() => remove(field.name)} type='text' icon={<CloseOutlined />} />
-															</Flex.Col>
-														</Flex.Row>
-													))}
-													<Button
-														onClick={() => add(1)}
-														type='text'
-														icon={<PlusOutlined />}
-													>
-														Add layer
-													</Button>
-												</Flex.Col>
-											)}
-										</Form.List>
-									</Flex.Col>
-									<Flex.Col flex={1}>
-										<Form.List name={['generatorConfig', 'moistureAmplitudes']}>
-											{(fields, { add, remove }) => (
-												<Flex.Col fullWidth gap={16} justify='center' align='center'>
-													<Text size={2}>Moisture amplitudes:</Text>
-													{fields.map(({ key, ...field }, i) => (
-														<Flex.Row fullWidth key={key} align='center' justify='center'>
-															<Flex.Col>
-																<Form.Item {...field} noStyle rules={[{ required: true }]}>
-																	<Input
-																		min={0.01}
-																		max={1}
-																		step={0.01}
-																		type='number'
-																	/>
-																</Form.Item>
-															</Flex.Col>
-															<Flex.Col>
-																<Button onClick={() => remove(field.name)} type='text' icon={<CloseOutlined />} />
-															</Flex.Col>
-														</Flex.Row>
-													))}
-													<Button
-														onClick={() => add(1)}
-														type='text'
-														icon={<PlusOutlined />}
-													>
-														Add layer
-													</Button>
-												</Flex.Col>
-											)}
-										</Form.List>
-									</Flex.Col>
-									<Flex.Col flex={1}>
-										<Form.List name={['generatorConfig', 'temperatureAmplitudes']}>
-											{(fields, { add, remove }) => (
-												<Flex.Col gap={16} fullWidth justify='center' align='center'>
-													<Text size={2}>Temperature amplitudes:</Text>
-													{fields.map(({ key, ...field }, i) => (
-														<Flex.Row fullWidth key={key} gap={16} justify='center' align='center'>
-															<Flex.Col>
-																<Form.Item {...field} noStyle rules={[{ required: true }]}>
-																	<Input
-																		min={0.01}
-																		max={1}
-																		step={0.01}
-																		type='number'
-																	/>
-																</Form.Item>
-															</Flex.Col>
-															<Flex.Col>
-																<Button onClick={() => remove(field.name)} type='text' icon={<CloseOutlined />} />
-															</Flex.Col>
-														</Flex.Row>
-													))}
-													<Button
-														onClick={() => add(1)}
-														type='text'
-														icon={<PlusOutlined />}
-													>
-														Add layer
-													</Button>
-												</Flex.Col>
-											)}
-										</Form.List>
-									</Flex.Col>
-								</Flex.Row>
+								<Collapse
+									bordered={false}
+									defaultActiveKey={[]}
+								>
+									<Collapse.Panel header='Advanced settings' key='1'>
+										<Flex.Row flex={0} fullWidth gap={16} justify='center'>
+											<Flex.Col flex={1}>
+												<Form.List name={['generatorConfig', 'terrainAmplitudes']}>
+													{(fields, { add, remove }) => (
+														<Flex.Col gap={16} fullWidth justify='center' align='center'>
+															<Text size={2}>Terrain amplitudes:</Text>
+															{fields.map(({ key, ...field }, i) => (
+																<Flex.Row fullWidth key={key} gap={16} align='center' justify='center'>
+																	<Flex.Col>
+																		<Form.Item {...field} noStyle rules={[{ required: true }]}>
+																			<Input
+																				min={0.01}
+																				max={1}
+																				step={0.01}
+																				type='number'
+																			/>
+																		</Form.Item>
+																	</Flex.Col>
+																	<Flex.Col>
+																		<Button onClick={() => remove(field.name)} type='text' icon={<CloseOutlined />} />
+																	</Flex.Col>
+																</Flex.Row>
+															))}
+															<Button
+																onClick={() => add(1)}
+																type='text'
+																icon={<PlusOutlined />}
+															>
+																Add layer
+															</Button>
+														</Flex.Col>
+													)}
+												</Form.List>
+											</Flex.Col>
+											<Flex.Col flex={1}>
+												<Form.List name={['generatorConfig', 'moistureAmplitudes']}>
+													{(fields, { add, remove }) => (
+														<Flex.Col fullWidth gap={16} justify='center' align='center'>
+															<Text size={2}>Moisture amplitudes:</Text>
+															{fields.map(({ key, ...field }, i) => (
+																<Flex.Row fullWidth key={key} align='center' justify='center'>
+																	<Flex.Col>
+																		<Form.Item {...field} noStyle rules={[{ required: true }]}>
+																			<Input
+																				min={0.01}
+																				max={1}
+																				step={0.01}
+																				type='number'
+																			/>
+																		</Form.Item>
+																	</Flex.Col>
+																	<Flex.Col>
+																		<Button onClick={() => remove(field.name)} type='text' icon={<CloseOutlined />} />
+																	</Flex.Col>
+																</Flex.Row>
+															))}
+															<Button
+																onClick={() => add(1)}
+																type='text'
+																icon={<PlusOutlined />}
+															>
+																Add layer
+															</Button>
+														</Flex.Col>
+													)}
+												</Form.List>
+											</Flex.Col>
+											<Flex.Col flex={1}>
+												<Form.List name={['generatorConfig', 'temperatureAmplitudes']}>
+													{(fields, { add, remove }) => (
+														<Flex.Col gap={16} fullWidth justify='center' align='center'>
+															<Text size={2}>Temperature amplitudes:</Text>
+															{fields.map(({ key, ...field }, i) => (
+																<Flex.Row fullWidth key={key} gap={16} justify='center' align='center'>
+																	<Flex.Col>
+																		<Form.Item {...field} noStyle rules={[{ required: true }]}>
+																			<Input
+																				min={0.01}
+																				max={1}
+																				step={0.01}
+																				type='number'
+																			/>
+																		</Form.Item>
+																	</Flex.Col>
+																	<Flex.Col>
+																		<Button onClick={() => remove(field.name)} type='text' icon={<CloseOutlined />} />
+																	</Flex.Col>
+																</Flex.Row>
+															))}
+															<Button
+																onClick={() => add(1)}
+																type='text'
+																icon={<PlusOutlined />}
+															>
+																Add layer
+															</Button>
+														</Flex.Col>
+													)}
+												</Form.List>
+											</Flex.Col>
+										</Flex.Row>
+									</Collapse.Panel>
+								</Collapse>
 								<Flex.Row flex={1} fullWidth />
 								<Flex.Row flex={0} fullWidth justify='center' gap={16}>
 									<Flex.Col>

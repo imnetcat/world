@@ -12,6 +12,7 @@ import { CommonPage } from 'utils/types';
 import styles from './Inspector.module.scss';
 import { BiomesWindow } from './components/BiomesWindow';
 import { CellInfoWindow } from './components/CellInfoWindow';
+import { ControlsWindow } from './components/ControlsWindow';
 import { InfoWindow } from './components/InfoWindow';
 import { ViewSettings, ViewSettingsWindow } from './components/ViewSettingsWindow';
 
@@ -150,6 +151,7 @@ const InspectorPage = ({ match: { params: { id } } }: CommonPage) => {
 						minHeight: 0,
 					}}>
 						<Flex.Col fullWidth gap={32} style={{ margin: '32px 0', height: 'fit-content' }}>
+							<ControlsWindow id={world.data.id} />
 							<ViewSettingsWindow
 								setViewSettings={setViewSettings}
 								viewSettings={viewSettings}
