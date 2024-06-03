@@ -1,15 +1,14 @@
+interface Role {
+  name: string;
+  roleId?: string;
+}
+
 interface Account {
   login: string;
   password: string;
   isBlocked: boolean;
+  rolesId: string[];
   accountId?: string;
-}
-
-interface AccountRole {
-  accountId: string;
-  role: string;
-  subscriptionEndDate?: string;
-  accountRoleId?: string;
 }
 
 interface Session {
@@ -25,7 +24,6 @@ interface World {
   accountId: string;
   height: number;
   width: number;
-  tiles: string;
   generatorConfig: string;
   generationTime: number;
   createdAt: string;

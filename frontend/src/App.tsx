@@ -5,15 +5,17 @@ import store from 'app/store';
 import { Error } from 'components/Error';
 import { Loader } from 'components/Loader';
 import PrivateRoute from 'components/PrivateRoute';
+import Editor from 'pages/Editor';
+import Generator from 'pages/Generator';
+import Inspector from 'pages/Inspector';
 import LoginPage from 'pages/LoginPage';
-import World from 'pages/World';
+import Saves from 'pages/Saves';
 import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import {
-	Redirect,
 	Route,
 	BrowserRouter as Router,
-	Switch,
+	Switch
 } from 'react-router-dom';
 import './App.css';
 
@@ -51,13 +53,29 @@ function App(): React.ReactElement {
 			<div className="app">
 				<Router>
 					<Switch>
+						<Route path="/login" exact component={LoginPage} />
 						<PrivateRoute
 							path="/"
 							exact
-							component={World}
+							component={Generator}
 						/>
-						<Route path="/login" exact component={LoginPage} />
-						<Redirect to="/" />
+						<PrivateRoute
+							path="/generator"
+							exact
+							component={Generator}
+						/>
+						<PrivateRoute
+							path="/inspector/:id"
+							component={Inspector}
+						/>
+						<PrivateRoute
+							path="/editor/:id"
+							component={Editor}
+						/>
+						<PrivateRoute
+							path="/saves"
+							component={Saves}
+						/>
 					</Switch>
 				</Router>
 			</div>

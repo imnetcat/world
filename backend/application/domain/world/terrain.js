@@ -57,7 +57,7 @@
 
     // width, height - in tiles size
     // return struct of generated world data
-    // see https://www.redblobgames.com/maps/terrain-from-noise/
+    // see more https://www.redblobgames.com/maps/terrain-from-noise/
     generate(width, height, generatorConfig) {
         const { torusnoise } = domain.world.terrain;
         const {

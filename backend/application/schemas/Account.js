@@ -8,4 +8,5 @@
 	},
 	password: { type: 'string', note: 'Password hash' },
 	isBlocked: { type: 'boolean', default: false },
+	roles: { many: 'Role' },
 });

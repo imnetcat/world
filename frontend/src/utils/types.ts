@@ -10,3 +10,6 @@ export type Unwrap<T> = T extends Promise<infer U>
 
 export type FirstParameter<T extends (...args: unknown[]) => void> =
 	Parameters<T>[0];
+
+export interface CommonPage { match: { params: { id: string } } };
+export type ViewSettingsMode = 'terrain' | 'height' | 'moisture' | 'temperature';

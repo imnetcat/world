@@ -1,13 +1,14 @@
 ({
 	host: '0.0.0.0',
-	protocol: process.env.HTTPS === 'true' ? 'https' : 'http',
-	ports: [8000],
+	protocol: process.env.HTTPS,
+	balancer: 8000,
+	ports: [8001, 8002],
 	nagle: false,
 	timeouts: {
 		bind: 2000,
 		start: 30000,
 		stop: 5000,
-		request: 5000,
+		request: 300000,
 		watch: 1000,
 	},
 	scheduler: {

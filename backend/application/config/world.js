@@ -1,0 +1,3 @@
+({
+    savesPath: 'saves',
+})

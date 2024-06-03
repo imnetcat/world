@@ -29,7 +29,6 @@ export type QueryParams = {
 };
 
 export type ListResponse<T> = { data: T[]; total: number };
-export type ResponseWithBenchmark<T> = { data: T, time: number };
 export type Response<T> = { data: T };
 // all requested api interfaces should have typings
 export type AbastractMetaApi = {
@@ -96,11 +95,11 @@ type ApiBase = {
 	};
 
 	world: {
-		generate: (args: WorldBase) => Promise<ResponseWithBenchmark<World>>;
-		get: (args: { id: string }) => Promise<ResponseWithBenchmark<World>>;
+		generate: (args: WorldBase) => Promise<Response<{ id: string }>>;
+		get: (args: { id: string }) => Promise<Response<World>>;
 		getList: (args: QueryParams) => Promise<ListResponse<WorldListItem>>;
 		delete: (args: { id: string }) => Promise<Response<string>>;
-		getLastSave: (args: Record<string, never>) => Promise<ResponseWithBenchmark<World | null>>;
+		getLastSave: (args: Record<string, never>) => Promise<Response<World | null>>;
 		getBiomes: (args: Record<string, never>) => Promise<{ data: Biomes, indexed: Record<string, string> }>;
 		setBiomes: (args: { biomes: Biomes }) => Promise<Response<string>>;
 	};

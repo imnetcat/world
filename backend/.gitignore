@@ -1,5 +1,6 @@
 node_modules
 /log/
+saves/*.json
 *.log
 *.done
 *.pem
