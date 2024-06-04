@@ -20,6 +20,7 @@ export interface World {
 		terrainAmplitudes: Array<number>;
 		moistureAmplitudes: Array<number>;
 		temperatureAmplitudes: Array<number>;
+		waterLevel: number;
 		temperature: number;
 	};
 	generationTime: number; // in ms

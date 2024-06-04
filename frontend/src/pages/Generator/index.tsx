@@ -25,6 +25,7 @@ const DEFAULT_GENERATOR_CONFIG: WorldBase = {
 		terrainAmplitudes: [0.5, 0.33, 0.16, 0.75, 0.5, 0.33],
 		moistureAmplitudes: [0.16, 0.33, 0.75, 0.33, 0.5, 0.7],
 		temperatureAmplitudes: [0.5, 0.33, 0.16, 0.75, 0.5, 0.33],
+		waterLevel: 0,
 	},
 };
 
@@ -115,25 +116,12 @@ const GeneratorPage = () => {
 										</Form.Item>
 									</Flex.Col>
 									<Flex.Col flex={1}>
-									</Flex.Col>
-								</Flex.Row>
-								<Flex.Row flex={0} fullWidth gap={16} align='center'>
-									<Flex.Col flex={1}>
-										<Form.Item style={{ margin: 0 }} label='Fudge factor:' name={['generatorConfig', 'fudgeFactor']} rules={[{ required: true }]}>
+										<Form.Item style={{ margin: 0 }} label='Water level:' name={['generatorConfig', 'waterLevel']} rules={[{ required: true }]}>
 											<Slider
-												min={0.5}
-												max={1.5}
-												step={0.05}
-												tooltip={{ formatter: (value) => `${value}` }}
-											/>
-										</Form.Item>
-									</Flex.Col>
-									<Flex.Col flex={1}>
-										<Form.Item style={{ margin: 0 }} label='Sharpness:' name={['generatorConfig', 'sharpness']} rules={[{ required: true }]}>
-											<Slider
-												min={0.05}
-												max={2}
-												step={0.05}
+												disabled
+												min={-1}
+												max={1}
+												step={0.01}
 												tooltip={{ formatter: (value) => `${value}` }}
 											/>
 										</Form.Item>
@@ -144,6 +132,28 @@ const GeneratorPage = () => {
 									defaultActiveKey={[]}
 								>
 									<Collapse.Panel header='Advanced settings' key='1'>
+										<Flex.Row flex={0} fullWidth gap={16} align='center'>
+											<Flex.Col flex={1}>
+												<Form.Item style={{ margin: 0 }} label='Fudge factor:' name={['generatorConfig', 'fudgeFactor']} rules={[{ required: true }]}>
+													<Slider
+														min={0.5}
+														max={1.5}
+														step={0.05}
+														tooltip={{ formatter: (value) => `${value}` }}
+													/>
+												</Form.Item>
+											</Flex.Col>
+											<Flex.Col flex={1}>
+												<Form.Item style={{ margin: 0 }} label='Sharpness:' name={['generatorConfig', 'sharpness']} rules={[{ required: true }]}>
+													<Slider
+														min={0.05}
+														max={2}
+														step={0.05}
+														tooltip={{ formatter: (value) => `${value}` }}
+													/>
+												</Form.Item>
+											</Flex.Col>
+										</Flex.Row>
 										<Flex.Row flex={0} fullWidth gap={16} justify='center'>
 											<Flex.Col flex={1}>
 												<Form.List name={['generatorConfig', 'terrainAmplitudes']}>

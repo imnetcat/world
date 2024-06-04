@@ -1,3 +1,4 @@
+import Panzoom, { PanzoomObject } from '@panzoom/panzoom';
 import { World } from 'api/world';
 import { useGetBiomesQuery, useGetWorldQuery, useSetBiomesMutation } from 'app/hooks';
 import { Canvas } from 'components/Canvas';
@@ -16,6 +17,8 @@ import { ControlsWindow } from './components/ControlsWindow';
 import { InfoWindow } from './components/InfoWindow';
 import { ViewSettings, ViewSettingsWindow } from './components/ViewSettingsWindow';
 
+const WORLD_MAP_CANVAS_ID = 'world-map-canvas';
+
 const InspectorPage = ({ match: { params: { id } } }: CommonPage) => {
 	const time1 = new Date().getTime();
 	const { data: world, isLoading: worldLoading } = useGetWorldQuery({ id });
@@ -31,12 +34,19 @@ const InspectorPage = ({ match: { params: { id } } }: CommonPage) => {
 	const [selectedTile, setSelectedTile] = useState<World['tiles'][number] | null>(null);
 	const [renderTime, setRenderTime] = useState<number | null>(null);
 	const [loadTime, setLoadTime] = useState<number | null>(null);
+	const [panzoom, setPanzoom] = useState<PanzoomObject | null>(null);
 
 	useEffect(() => {
 		setSelectedTile(null);
 		if (!worldLoading) {
 			const time2 = new Date().getTime();
 			setLoadTime(time2 - time1);
+			const elem = document.getElementById(WORLD_MAP_CANVAS_ID);
+			if (elem) {
+				setPanzoom(Panzoom(elem, {
+					maxScale: 5
+				}));
+			}
 		}
 	}, [world]);
 
@@ -44,13 +54,16 @@ const InspectorPage = ({ match: { params: { id } } }: CommonPage) => {
 		if (!world || !biomes) return;
 
 		const { tiles, width, height } = world.data;
-		const { tileSize, mode, offsetX, offsetY, zoom } = viewSettings;
+		// const { tileSize, mode, offsetX, offsetY, zoom } = viewSettings;
+		const { tileSize, mode, offsetX, offsetY } = viewSettings;
 		const renderTimeStart = new Date().getTime();
-		context.canvas.width = tileSize * width * zoom;
-		context.canvas.height = tileSize * height * zoom;
+		// context.canvas.width = tileSize * width * zoom;
+		// context.canvas.height = tileSize * height * zoom;
+		context.canvas.width = tileSize * width;
+		context.canvas.height = tileSize * height;
 		context.fillStyle = '#000000';
 		context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-		context.scale(zoom, zoom);
+		// context.scale(zoom, zoom);
 		for (let i = 0; i < tiles.length; i++) {
 			const tile = tiles[i];
 			let x = tile.x + offsetX;
@@ -94,36 +107,45 @@ const InspectorPage = ({ match: { params: { id } } }: CommonPage) => {
 									style={{ height: 832 }}
 									fullWidth fixedHeight
 								>
-									<ScrollBox
+									{/* <ScrollBox
 										containerStyle={{
 											width: '100%',
 											height: '100%',
 										}}
 										direction='both'
-									>
-										<Flex.Row fullWidth fullHeight justify='center' align='center'>
-											<Canvas
-												draw={renderWorldMap}
-												onClick={e => {
-													if (!world) return;
-													const canvas = e.currentTarget;
-													const rect = canvas.getBoundingClientRect();
-													const { tileSize, offsetX, offsetY, zoom } = viewSettings;
-													let x = Math.floor((e.clientX - rect.left) / (tileSize * zoom)) - offsetX;
-													let y = Math.floor((e.clientY - rect.top) / (tileSize * zoom)) - offsetY;
-													if (x <= 0) x += world.data.width;
-													if (y <= 0) y += world.data.height;
-													let tile: World['tiles'][number] | null = null;
-													for (const t of world.data.tiles) {
-														if (x === t.x && y === t.y) {
-															tile = t;
-															break;
-														}
+									> */}
+									<Flex.Row fullWidth fullHeight justify='center' align='center'>
+										<Canvas
+											onWheel={(evn) => {
+												if (panzoom) {
+													evn.preventDefault();
+													evn.stopPropagation();
+													panzoom.zoomWithWheel(evn.nativeEvent, { animate: true });
+													setViewSettings({ ...viewSettings, zoom: panzoom.getScale() });
+												}
+											}}
+											id={WORLD_MAP_CANVAS_ID}
+											draw={renderWorldMap}
+											onClick={e => {
+												if (!world) return;
+												const canvas = e.currentTarget;
+												const rect = canvas.getBoundingClientRect();
+												const { tileSize, offsetX, offsetY, zoom } = viewSettings;
+												let x = Math.floor((e.clientX - rect.left) / (tileSize * zoom)) - offsetX;
+												let y = Math.floor((e.clientY - rect.top) / (tileSize * zoom)) - offsetY;
+												if (x <= 0) x += world.data.width;
+												if (y <= 0) y += world.data.height;
+												let tile: World['tiles'][number] | null = null;
+												for (const t of world.data.tiles) {
+													if (x === t.x && y === t.y) {
+														tile = t;
+														break;
 													}
-													setSelectedTile(tile);
-												}} />
-										</Flex.Row>
-									</ScrollBox>
+												}
+												setSelectedTile(tile);
+											}} />
+									</Flex.Row>
+									{/* </ScrollBox> */}
 								</Flex.Col>
 							</Window>
 							<Flex.Col fullWidth>
@@ -152,7 +174,8 @@ const InspectorPage = ({ match: { params: { id } } }: CommonPage) => {
 					}}>
 						<Flex.Col fullWidth gap={32} style={{ margin: '32px 0', height: 'fit-content' }}>
 							<ControlsWindow id={world.data.id} />
-							<ViewSettingsWindow
+							{panzoom && <ViewSettingsWindow
+								panzoom={panzoom}
 								setViewSettings={setViewSettings}
 								viewSettings={viewSettings}
 								renderTime={renderTime}
@@ -160,6 +183,7 @@ const InspectorPage = ({ match: { params: { id } } }: CommonPage) => {
 								worldHeight={world.data.height}
 								worldWidth={world.data.width}
 							/>
+							}
 							<BiomesWindow
 								disabled={false}
 								mode={viewSettings.mode}

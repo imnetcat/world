@@ -24,58 +24,24 @@
         };
     },
 
-    // wrap around generated noise in all 4 direction
-    // torusnoise(noise4D, nx, ny) {
-    //     // const TAU = 2 * Math.PI;
-    //     // const TAU = Math.PI;
-    //     // const TAU = 1.41421356237;
-    //     const TAU = 2 * Math.PI;
-    //     const angle_x = TAU * nx;
-    //     const angle_y = TAU * ny;
-    //     return noise4D(Math.cos(angle_x) / TAU, Math.sin(angle_x) / TAU,
-    //         Math.cos(angle_y) / TAU, Math.sin(angle_y) / TAU);
-    // },
-
-    // wrap around generated noise in all 4 direction
-    torusnoise(noise4D, nx, ny, i) {
-        // const TAU = Math.PI / 2;
-        // const TAU = Math.PI;
-        // const TAU = 1.41421356237;
-        const TAU = 2 * Math.PI;
-        const angle_x = TAU * nx;
-        const angle_y = TAU * ny;
-        let x1 = Math.cos(angle_x) / TAU;
-        let x2 = Math.sin(angle_x) / TAU;
-        x1 *= Math.pow(2, i);
-        x2 *= Math.pow(2, i);
-        let y1 = Math.cos(angle_y) / TAU;
-        let y2 = Math.sin(angle_y) / TAU;
-        y1 *= Math.pow(2, i);
-        y2 *= Math.pow(2, i);
-        return noise4D(x1, x2, y1, y2);
-    },
-
     // width, height - in tiles size
     // return struct of generated world data
     // see more https://www.redblobgames.com/maps/terrain-from-noise/
     generate(width, height, generatorConfig) {
-        const { torusnoise } = domain.world.terrain;
+        const wrapNoiseXY = lib.noise.wrapNoiseXY;
         const {
             seed,
             sharpness,
             fudgeFactor,
             temperature,
+            waterLevel,
             terrainAmplitudes = [],
             moistureAmplitudes = [],
             temperatureAmplitudes = [],
         } = generatorConfig;
         // const tiles = new Array(height).fill(new Array(width).fill({}));
         const tiles = [];
-        const seedFunc = npm.alea(seed);
-        const createNoise = npm['simplex-noise'].createNoise4D;
-        const genTerrain = createNoise(seedFunc);
-        const genTemperature = createNoise(npm.alea(seed.toString().split('').reverse().join('')));
-        const genMoisture = createNoise(npm.alea(node.crypto.createHash('md5').update(seed).digest('hex')));
+        const { genTerrain, genTemperature, genMoisture } = lib.noise.generator(seed);
         const generationTimeStart = new Date().getTime();
 
         for (let y = 0; y < height; y++) {
@@ -88,10 +54,10 @@
 
                 // generate temperature noise in coordinate (x, y)
                 const t2 = temperatureAmplitudes.length === 0
-                    ? torusnoise(genTemperature, nx, ny)
+                    ? wrapNoiseXY(genTemperature, nx, ny)
                     : temperatureAmplitudes.reduce((acc, amplitude, i) =>
-                        // acc + amplitude * torusnoise(genTemperature, Math.pow(2, i) * nx, Math.pow(2, i) * ny), 0
-                        acc + amplitude * torusnoise(genTemperature, nx, ny, i), 0
+                        // acc + amplitude * wrapNoiseXY(genTemperature, Math.pow(2, i) * nx, Math.pow(2, i) * ny), 0
+                        acc + amplitude * wrapNoiseXY(genTemperature, nx, ny, i), 0
                     ) / temperatureAmplitudes.reduce((acc, amplitude) => acc + amplitude, 0);
 
                 let t = t1 + t2 + temperature;
@@ -105,10 +71,10 @@
 
                 // generate terrain height in coordinate (x, y)
                 let h = terrainAmplitudes.length === 0
-                    ? torusnoise(genTerrain, nx, ny)
+                    ? wrapNoiseXY(genTerrain, nx, ny)
                     : terrainAmplitudes.reduce((acc, amplitude, i) =>
-                        // acc + amplitude * torusnoise(genTerrain, Math.pow(2, i) * nx, Math.pow(2, i) * ny), 0
-                        acc + amplitude * torusnoise(genTerrain, nx, ny, i), 0
+                        // acc + amplitude * wrapNoiseXY(genTerrain, Math.pow(2, i) * nx, Math.pow(2, i) * ny), 0
+                        acc + amplitude * wrapNoiseXY(genTerrain, nx, ny, i), 0
                     ) / terrainAmplitudes.reduce((acc, amplitude) => acc + amplitude, 0);
 
                 // redistribution
@@ -133,10 +99,10 @@
 
                 // generate moisture value noise in coordinate (x, y)
                 const m2 = moistureAmplitudes.length === 0
-                    ? torusnoise(genMoisture, nx, ny)
+                    ? wrapNoiseXY(genMoisture, nx, ny)
                     : moistureAmplitudes.reduce((acc, amplitude, i) =>
-                        // acc + amplitude * torusnoise(genMoisture, Math.pow(2, i) * nx, Math.pow(2, i) * ny), 0
-                        acc + amplitude * torusnoise(genMoisture, nx, ny, i), 0
+                        // acc + amplitude * wrapNoiseXY(genMoisture, Math.pow(2, i) * nx, Math.pow(2, i) * ny), 0
+                        acc + amplitude * wrapNoiseXY(genMoisture, nx, ny, i), 0
                     ) / moistureAmplitudes.reduce((acc, amplitude) => acc + amplitude, 0);
 
                 let m = m1 + m2 + m3;

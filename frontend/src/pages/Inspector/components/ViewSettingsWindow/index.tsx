@@ -1,6 +1,7 @@
+import { PanzoomObject } from '@panzoom/panzoom';
 import { Form, Input, Select, Slider } from 'antd';
 import Window from 'components/Window';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Flex from 'ui/Flex';
 import { Text } from 'ui/Typography';
 import { ViewSettingsMode } from 'utils/types';
@@ -23,11 +24,16 @@ interface ViewSettingsWindowProps {
     worldHeight?: number;
     worldWidth?: number;
     viewSettings: ViewSettings;
+    panzoom: PanzoomObject;
     setViewSettings: React.Dispatch<React.SetStateAction<ViewSettings>>;
 }
 
-export const ViewSettingsWindow = ({ worldHeight, loadTime, worldWidth, renderTime, viewSettings, setViewSettings }: ViewSettingsWindowProps) => {
+export const ViewSettingsWindow = ({ panzoom, worldHeight, loadTime, worldWidth, renderTime, viewSettings, setViewSettings }: ViewSettingsWindowProps) => {
     const [delta, setDelta] = useState(viewSettings);
+    useEffect(() => {
+        setDelta({ ...delta, zoom: panzoom.getScale() });
+    }, [panzoom]);
+
     useDebounceState(delta, setViewSettings, 500);
     return (
         <Window title='View Settings' style={{
@@ -38,9 +44,11 @@ export const ViewSettingsWindow = ({ worldHeight, loadTime, worldWidth, renderTi
                 layout='inline'
                 requiredMark={false}
                 initialValues={viewSettings}
-                onValuesChange={(_, fields) => {
+                onValuesChange={(_, { zoom, ...fields }) => {
+                    panzoom.zoom(zoom, { animate: true });
                     setDelta({
                         ...fields,
+                        zoom,
                         tileSize: parseInt(fields.tileSize as unknown as string),
                     })
                 }}
