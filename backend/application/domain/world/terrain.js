@@ -35,12 +35,16 @@
             fudgeFactor,
             temperature,
             waterLevel,
+            octaves = [],
             terrainAmplitudes = [],
             moistureAmplitudes = [],
             temperatureAmplitudes = [],
         } = generatorConfig;
         // const tiles = new Array(height).fill(new Array(width).fill({}));
         const tiles = [];
+        const seedHash = node.crypto.createHash('md5').update(seed).digest('hex');
+        const octaveSeed1 = parseInt(seedHash.substring(0, 8), 16);
+        const octaveSeed2 = parseInt(seedHash.substring(8, 16), 16);
         const { genTerrain, genTemperature, genMoisture } = lib.noise.generator(seed);
         const generationTimeStart = new Date().getTime();
 
@@ -57,7 +61,7 @@
                     ? wrapNoiseXY(genTemperature, nx, ny)
                     : temperatureAmplitudes.reduce((acc, amplitude, i) =>
                         // acc + amplitude * wrapNoiseXY(genTemperature, Math.pow(2, i) * nx, Math.pow(2, i) * ny), 0
-                        acc + amplitude * wrapNoiseXY(genTemperature, nx, ny, i), 0
+                        acc + octaves[i] * wrapNoiseXY(genTemperature, amplitude * nx + (octaveSeed2 / octaveSeed1) * i, amplitude * ny + (octaveSeed2 / octaveSeed1) * i / 2, i)
                     ) / temperatureAmplitudes.reduce((acc, amplitude) => acc + amplitude, 0);
 
                 let t = t1 + t2 + temperature;
@@ -74,7 +78,8 @@
                     ? wrapNoiseXY(genTerrain, nx, ny)
                     : terrainAmplitudes.reduce((acc, amplitude, i) =>
                         // acc + amplitude * wrapNoiseXY(genTerrain, Math.pow(2, i) * nx, Math.pow(2, i) * ny), 0
-                        acc + amplitude * wrapNoiseXY(genTerrain, nx, ny, i), 0
+                        acc + octaves[i] * wrapNoiseXY(genTerrain, amplitude * nx + (octaveSeed2 / octaveSeed1) * i, amplitude * ny + (octaveSeed2 / octaveSeed1) * i / 2, i)
+                        , 0
                     ) / terrainAmplitudes.reduce((acc, amplitude) => acc + amplitude, 0);
 
                 // redistribution
@@ -102,7 +107,7 @@
                     ? wrapNoiseXY(genMoisture, nx, ny)
                     : moistureAmplitudes.reduce((acc, amplitude, i) =>
                         // acc + amplitude * wrapNoiseXY(genMoisture, Math.pow(2, i) * nx, Math.pow(2, i) * ny), 0
-                        acc + amplitude * wrapNoiseXY(genMoisture, nx, ny, i), 0
+                        acc + octaves[i] * wrapNoiseXY(genMoisture, amplitude * nx + (octaveSeed2 / octaveSeed1) * i, amplitude * ny + (octaveSeed2 / octaveSeed1) * i / 2, i)
                     ) / moistureAmplitudes.reduce((acc, amplitude) => acc + amplitude, 0);
 
                 let m = m1 + m2 + m3;

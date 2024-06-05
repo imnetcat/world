@@ -22,6 +22,7 @@ const DEFAULT_GENERATOR_CONFIG: WorldBase = {
 		sharpness: 0.5,
 		fudgeFactor: 1.25,
 		temperature: 0,
+		octaves: [1, 0.5, 0.25, 0.5, 0.25, 0.33],
 		terrainAmplitudes: [0.5, 0.33, 0.16, 0.75, 0.5, 0.33],
 		moistureAmplitudes: [0.16, 0.33, 0.75, 0.33, 0.5, 0.7],
 		temperatureAmplitudes: [0.5, 0.33, 0.16, 0.75, 0.5, 0.33],
@@ -155,6 +156,39 @@ const GeneratorPage = () => {
 											</Flex.Col>
 										</Flex.Row>
 										<Flex.Row flex={0} fullWidth gap={16} justify='center'>
+											<Flex.Col flex={1}>
+												<Form.List name={['generatorConfig', 'octaves']}>
+													{(fields, { add, remove }) => (
+														<Flex.Col gap={16} fullWidth justify='center' align='center'>
+															<Text size={2}>Octaves:</Text>
+															{fields.map(({ key, ...field }, i) => (
+																<Flex.Row fullWidth key={key} gap={16} align='center' justify='center'>
+																	<Flex.Col>
+																		<Form.Item {...field} noStyle rules={[{ required: true }]}>
+																			<Input
+																				min={0.005}
+																				max={1}
+																				step={0.005}
+																				type='number'
+																			/>
+																		</Form.Item>
+																	</Flex.Col>
+																	<Flex.Col>
+																		<Button onClick={() => remove(field.name)} type='text' icon={<CloseOutlined />} />
+																	</Flex.Col>
+																</Flex.Row>
+															))}
+															<Button
+																onClick={() => add(1)}
+																type='text'
+																icon={<PlusOutlined />}
+															>
+																Add layer
+															</Button>
+														</Flex.Col>
+													)}
+												</Form.List>
+											</Flex.Col>
 											<Flex.Col flex={1}>
 												<Form.List name={['generatorConfig', 'terrainAmplitudes']}>
 													{(fields, { add, remove }) => (
