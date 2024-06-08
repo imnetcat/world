@@ -78,7 +78,12 @@
                     ? wrapNoiseXY(genTerrain, nx, ny)
                     : terrainAmplitudes.reduce((acc, amplitude, i) =>
                         // acc + amplitude * wrapNoiseXY(genTerrain, Math.pow(2, i) * nx, Math.pow(2, i) * ny), 0
-                        acc + octaves[i] * wrapNoiseXY(genTerrain, amplitude * nx + (octaveSeed2 / octaveSeed1) * i, amplitude * ny + (octaveSeed2 / octaveSeed1) * i / 2, i)
+                        acc + octaves[i] * wrapNoiseXY(
+                            genTerrain,
+                            amplitude * nx + (octaveSeed2 / octaveSeed1) * i,
+                            amplitude * ny + (octaveSeed2 / octaveSeed1) * i / 2,
+                            i
+                        )
                         , 0
                     ) / terrainAmplitudes.reduce((acc, amplitude) => acc + amplitude, 0);
 
